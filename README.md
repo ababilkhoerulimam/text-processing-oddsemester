@@ -24,7 +24,7 @@
 
 ## Project Overview
 
-This repository contains the coursework implementation for Text Processing Week 4 (Exercise 3 and Exercise 4). The project demonstrates data acquisition from Hacker News using two distinct collection strategies, followed by an end-to-end natural language preprocessing workflow.
+This repository contains the coursework implementation for Text Processing Week 4 (Exercise 3, Exercise 4, and Exercise 5). The project demonstrates data acquisition from Hacker News using two distinct collection strategies, an end-to-end natural language preprocessing workflow, and comprehensive feature engineering representations.
 
 ### Team Members
 - Ababil Khoerul Imam (NIM 152)
@@ -36,7 +36,8 @@ Data Science Study Program, Faculty of Mathematics and Natural Sciences, Univers
 
 ```text
 text-processing-week4/
-├── ababil bethania_exercise 4.ipynb  # Primary notebook containing scraping and preprocessing workflows
+├── ababil bethania_exercise 4.ipynb  # Scraping and preprocessing workflows (Exercise 3 & 4)
+├── ababil bethania_exercise 5.ipynb  # Feature engineering representations (Exercise 5)
 ├── hackernews_stories.csv            # Structured dataset of 30 top stories acquired via Firebase API
 ├── hackernews_preprocessed.csv       # Cleaned dataset with original and preprocessed article titles
 ├── LICENSE                           # MIT License
@@ -68,6 +69,18 @@ The text cleaning pipeline processes the `title` field through ten ordered trans
 9. **Stemming**: Normalizes word forms to morphological roots using the Porter Stemmer algorithm (`PorterStemmer`).
 10. **Reconstruction**: Joins cleaned tokens into whitespace-delimited strings for downstream text modeling and exports the result to `hackernews_preprocessed.csv`.
 
+### 3. Feature Engineering (Exercise 5)
+
+The feature representation stage transforms cleaned article titles into dense and sparse numeric representations:
+
+1. **One Hot Encoding**: Binary indicator matrix representing vocabulary presence/absence per title.
+2. **Bag of Words (BoW)**: Term frequency matrix preserving word counts per title.
+3. **TF-IDF**: Normalized term frequency weighted against inverse document frequency across the 30-title corpus.
+4. **Word2Vec (CBOW & Skip-Gram)**: Dense 100-dimensional distributed word vectors pooled via mean document embedding.
+5. **FastText**: Subword character n-gram embeddings (3-6 chars) providing robust representation for out-of-vocabulary terms.
+6. **Epoch Sensitivity Analysis**: Evaluates pairwise cosine similarity dynamics across 5 to 200 epochs to detect representation collapse in small corpora.
+7. **Document Similarity Retrieval**: Cosine similarity query retrieval comparing TF-IDF, Word2Vec, and FastText document spaces.
+
 ## Getting Started
 
 ### Prerequisites
@@ -75,7 +88,7 @@ The text cleaning pipeline processes the `title` field through ten ordered trans
 Ensure Python 3.10+ is installed. Required libraries:
 
 ```bash
-pip install requests beautifulsoup4 pandas matplotlib demoji nltk
+pip install requests beautifulsoup4 pandas matplotlib demoji nltk gensim scikit-learn
 ```
 
 ### Running the Notebook
@@ -86,6 +99,7 @@ Clone the repository and launch Jupyter Notebook or Google Colab:
 git clone https://github.com/ababilkhoerulimam/text-processing-week4.git
 cd text-processing-week4
 jupyter notebook "ababil bethania_exercise 4.ipynb"
+jupyter notebook "ababil bethania_exercise 5.ipynb"
 ```
 
 The notebook automatically handles necessary NLTK resource downloads (`punkt`, `punkt_tab`, and `stopwords`) during execution.
